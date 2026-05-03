@@ -1,0 +1,158 @@
+{
+  "input_file": "/Users/kavan/Desktop/DATA 230/final_project/Data/processed/flights_model_ready_3class.csv",
+  "dataset_shape": [
+    291220,
+    23
+  ],
+  "target_column": "delay_class_3",
+  "categorical_columns": [
+    "FL_DATE",
+    "AIRLINE",
+    "AIRLINE_CODE",
+    "ORIGIN",
+    "DEST",
+    "ORIGIN_STATE",
+    "DEST_STATE",
+    "dep_time_bucket",
+    "season",
+    "route"
+  ],
+  "numeric_columns": [
+    "CRS_DEP_TIME_MIN",
+    "CRS_ARR_TIME_MIN",
+    "CRS_ELAPSED_TIME",
+    "DISTANCE",
+    "SCHED_BLOCK_MINS",
+    "year",
+    "month",
+    "day",
+    "day_of_week",
+    "is_weekend",
+    "dep_hour",
+    "arr_hour"
+  ],
+  "metrics_summary": {
+    "logistic_regression": {
+      "accuracy": 0.5158986333356226,
+      "precision_macro": 0.3925088683997733,
+      "recall_macro": 0.4494309111817934,
+      "f1_macro": 0.36068547725597533,
+      "precision_weighted": 0.7685377753793425,
+      "recall_weighted": 0.5158986333356226,
+      "f1_weighted": 0.5944212853480387,
+      "classification_report": {
+        "0": {
+          "precision": 0.9001874739619498,
+          "recall": 0.5399062988027069,
+          "f1-score": 0.6749794999284124,
+          "support": 48025.0
+        },
+        "1": {
+          "precision": 0.17538441319490078,
+          "recall": 0.4005102040816326,
+          "f1-score": 0.2439447948085184,
+          "support": 6664.0
+        },
+        "2": {
+          "precision": 0.10195471804246942,
+          "recall": 0.4078762306610408,
+          "f1-score": 0.1631321370309951,
+          "support": 3555.0
+        },
+        "accuracy": 0.5158986333356226,
+        "macro avg": {
+          "precision": 0.3925088683997733,
+          "recall": 0.4494309111817934,
+          "f1-score": 0.36068547725597533,
+          "support": 58244.0
+        },
+        "weighted avg": {
+          "precision": 0.7685377753793425,
+          "recall": 0.5158986333356226,
+          "f1-score": 0.5944212853480387,
+          "support": 58244.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          25929,
+          11399,
+          10697
+        ],
+        [
+          1920,
+          2669,
+          2075
+        ],
+        [
+          955,
+          1150,
+          1450
+        ]
+      ],
+      "model_path": "/Users/kavan/Desktop/DATA 230/final_project/Models/logistic_regression_3class.joblib",
+      "confusion_matrix_figure": "/Users/kavan/Desktop/DATA 230/final_project/Figures/logistic_regression_confusion_matrix_3class.png"
+    },
+    "random_forest": {
+      "accuracy": 0.6712451067921159,
+      "precision_macro": 0.4081132713135833,
+      "recall_macro": 0.44550562803815374,
+      "f1_macro": 0.41490403301006973,
+      "precision_weighted": 0.754484396075844,
+      "recall_weighted": 0.6712451067921159,
+      "f1_weighted": 0.7059531840778586,
+      "classification_report": {
+        "0": {
+          "precision": 0.8759017352310392,
+          "recall": 0.7483602290473712,
+          "f1-score": 0.8071235276283728,
+          "support": 48025.0
+        },
+        "1": {
+          "precision": 0.20595399188092017,
+          "recall": 0.34258703481392555,
+          "f1-score": 0.2572539297988619,
+          "support": 6664.0
+        },
+        "2": {
+          "precision": 0.1424840868287906,
+          "recall": 0.24556962025316456,
+          "f1-score": 0.1803346416029746,
+          "support": 3555.0
+        },
+        "accuracy": 0.6712451067921159,
+        "macro avg": {
+          "precision": 0.4081132713135833,
+          "recall": 0.44550562803815374,
+          "f1-score": 0.41490403301006973,
+          "support": 58244.0
+        },
+        "weighted avg": {
+          "precision": 0.754484396075844,
+          "recall": 0.6712451067921159,
+          "f1-score": 0.7059531840778586,
+          "support": 58244.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          35940,
+          7884,
+          4201
+        ],
+        [
+          3328,
+          2283,
+          1053
+        ],
+        [
+          1764,
+          918,
+          873
+        ]
+      ],
+      "model_path": "/Users/kavan/Desktop/DATA 230/final_project/Models/random_forest_3class.joblib",
+      "confusion_matrix_figure": "/Users/kavan/Desktop/DATA 230/final_project/Figures/random_forest_confusion_matrix_3class.png"
+    }
+  }
+}

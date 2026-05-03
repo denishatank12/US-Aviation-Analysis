@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+Data/raw/*.csv
+Data/processed/*.csv
+Models/*.joblib
+
+Archive/
+.ipynb_checkpoints/
