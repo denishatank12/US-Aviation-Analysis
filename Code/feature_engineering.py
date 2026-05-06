@@ -15,6 +15,7 @@ SAFE_BASE_COLS = [
     "SCHED_BLOCK_MINS",
 ]
 
+
 def make_delay_class_4(dep_delay):
     if pd.isna(dep_delay):
         return pd.NA
@@ -26,6 +27,7 @@ def make_delay_class_4(dep_delay):
         return 2
     return 3
 
+
 def make_delay_class_3(dep_delay):
     if pd.isna(dep_delay):
         return pd.NA
@@ -34,6 +36,7 @@ def make_delay_class_3(dep_delay):
     if dep_delay <= 60:
         return 1
     return 2
+
 
 def make_dep_time_bucket(minutes):
     if pd.isna(minutes):
@@ -49,6 +52,7 @@ def make_dep_time_bucket(minutes):
         return "Evening"
     return "Night"
 
+
 def make_season(month):
     if pd.isna(month):
         return pd.NA
@@ -61,6 +65,18 @@ def make_season(month):
         return "Summer"
     return "Fall"
 
+
+def make_distance_band(distance):
+    if pd.isna(distance):
+        return pd.NA
+    distance = float(distance)
+    if distance < 500:
+        return "Short Haul"
+    if distance < 1500:
+        return "Medium Haul"
+    return "Long Haul"
+
+
 def filter_valid_multiclass_rows(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     if "CANCELLED" in out.columns:
@@ -70,11 +86,13 @@ def filter_valid_multiclass_rows(df: pd.DataFrame) -> pd.DataFrame:
     out = out[out["DEP_DELAY"].notna()].copy()
     return out
 
+
 def add_targets(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     out["delay_class_4"] = out["DEP_DELAY"].apply(make_delay_class_4).astype("Int64")
     out["delay_class_3"] = out["DEP_DELAY"].apply(make_delay_class_3).astype("Int64")
     return out
+
 
 def build_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
@@ -84,6 +102,7 @@ def build_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
     out["month"] = out["FL_DATE"].dt.month
     out["day"] = out["FL_DATE"].dt.day
     out["day_of_week"] = out["FL_DATE"].dt.dayofweek
+    out["week_of_year"] = out["FL_DATE"].dt.isocalendar().week.astype("Int64")
     out["is_weekend"] = out["day_of_week"].isin([5, 6]).astype(int)
 
     out["dep_hour"] = (out["CRS_DEP_TIME_MIN"] // 60).astype("Int64")
@@ -91,9 +110,15 @@ def build_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
 
     out["dep_time_bucket"] = out["CRS_DEP_TIME_MIN"].apply(make_dep_time_bucket)
     out["season"] = out["month"].apply(make_season)
-    out["route"] = out["ORIGIN"].astype(str) + "_" + out["DEST"].astype(str)
+
+    out["is_morning_peak"] = out["dep_hour"].isin([6, 7, 8]).astype(int)
+    out["is_evening_peak"] = out["dep_hour"].isin([17, 18, 19, 20]).astype(int)
+    out["is_red_eye"] = out["dep_hour"].isin([22, 23, 0, 1, 2, 3, 4]).astype(int)
+
+    out["distance_band"] = out["DISTANCE"].apply(make_distance_band)
 
     return out
+
 
 def build_model_ready_3class(df: pd.DataFrame) -> pd.DataFrame:
     out = filter_valid_multiclass_rows(df)
@@ -104,7 +129,6 @@ def build_model_ready_3class(df: pd.DataFrame) -> pd.DataFrame:
     out = build_calendar_features(out)
 
     required = [
-        "FL_DATE",
         "AIRLINE",
         "ORIGIN",
         "DEST",
@@ -116,4 +140,12 @@ def build_model_ready_3class(df: pd.DataFrame) -> pd.DataFrame:
         "delay_class_3",
     ]
     out = out.dropna(subset=required).copy()
+
+    # Drop raw FL_DATE to avoid very high-cardinality date memorization
+    if "FL_DATE" in out.columns:
+        out = out.drop(columns=["FL_DATE"])
+
+    # Do NOT use route for now; it is sparse and can hurt RF generalization
+    # If you want to test later, add it back as an experiment.
+
     return out

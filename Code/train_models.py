@@ -206,11 +206,11 @@ def main():
     categorical_cols = X.select_dtypes(include=["object"]).columns.tolist()
     numeric_cols = X.select_dtypes(include=["int64", "float64", "Int64"]).columns.tolist()
 
-    if "FL_DATE" in X.columns:
-        if "FL_DATE" not in categorical_cols:
-            categorical_cols.append("FL_DATE")
-        if "FL_DATE" in numeric_cols:
-            numeric_cols.remove("FL_DATE")
+    # if "FL_DATE" in X.columns:
+    #     if "FL_DATE" not in categorical_cols:
+    #         categorical_cols.append("FL_DATE")
+    #     if "FL_DATE" in numeric_cols:
+    #         numeric_cols.remove("FL_DATE")
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y
@@ -245,7 +245,7 @@ def main():
     random_forest_model = Pipeline(steps=[
         ("preprocessor", preprocessor),
         ("classifier", RandomForestClassifier(
-            n_estimators=200,
+            n_estimators=300,
             max_depth=None,
             min_samples_split=5,
             min_samples_leaf=2,

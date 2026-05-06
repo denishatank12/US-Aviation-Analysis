@@ -1,0 +1,72 @@
+{
+  "model_used": "random_forest_3class",
+  "input_data": "/Users/kavan/Desktop/DATA 230/final_project/Data/processed/flights_model_ready_3class.csv",
+  "method": "Permutation Feature Importance",
+  "metric_used": "weighted_f1",
+  "permutation_importance_csv": "/Users/kavan/Desktop/DATA 230/final_project/Reports/feature_importance.csv",
+  "permutation_importance_figure": "/Users/kavan/Desktop/DATA 230/final_project/Figures/permutation_importance_top15.png",
+  "permutation_importance_clean_figure": "/Users/kavan/Desktop/DATA 230/final_project/Figures/permutation_importance_top15_clean.png",
+  "local_prediction_examples_csv": "/Users/kavan/Desktop/DATA 230/final_project/Reports/local_prediction_examples.csv",
+  "top_10_features": [
+    {
+      "feature": "year",
+      "clean_feature": "Year",
+      "importance_mean": 0.0036543147765731496,
+      "importance_std": 0.00030437053939466114
+    },
+    {
+      "feature": "season",
+      "clean_feature": "Season",
+      "importance_mean": 0.0033369219142602713,
+      "importance_std": 0.00015411807607179873
+    },
+    {
+      "feature": "FL_DATE",
+      "clean_feature": "Flight Date",
+      "importance_mean": 0.0014693923364115236,
+      "importance_std": 0.0002367802660229026
+    },
+    {
+      "feature": "day_of_week",
+      "clean_feature": "Day of Week",
+      "importance_mean": 0.00012018431609147247,
+      "importance_std": 0.00024543607312371555
+    },
+    {
+      "feature": "month",
+      "clean_feature": "Month",
+      "importance_mean": -1.4879375593893998e-05,
+      "importance_std": 0.00025841573098181665
+    },
+    {
+      "feature": "is_weekend",
+      "clean_feature": "Weekend Flag",
+      "importance_mean": -9.07805337371596e-05,
+      "importance_std": 0.00010017960838687588
+    },
+    {
+      "feature": "day",
+      "clean_feature": "Day",
+      "importance_mean": -0.00015712587960940252,
+      "importance_std": 0.00027288443434636165
+    },
+    {
+      "feature": "route",
+      "clean_feature": "Route",
+      "importance_mean": -0.000651348407565903,
+      "importance_std": 0.00027084671085122753
+    },
+    {
+      "feature": "SCHED_BLOCK_MINS",
+      "clean_feature": "Scheduled Block Time",
+      "importance_mean": -0.0020574820274293915,
+      "importance_std": 0.0001706214275055188
+    },
+    {
+      "feature": "DISTANCE",
+      "clean_feature": "Distance",
+      "importance_mean": -0.002300703499755826,
+      "importance_std": 0.00019722835661504314
+    }
+  ]
+}

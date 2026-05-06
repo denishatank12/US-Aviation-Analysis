@@ -2,9 +2,20 @@ __pycache__/
 *.pyc
 .DS_Store
 
-Data/raw/*.csv
-Data/processed/*.csv
 Models/*.joblib
+Data/raw/flights_sample_3m.csv
+Data/raw/kv_dashboard_sample.csv
+Data/processed/cleaned_flights.csv
+Data/processed/dashboard_predictions_3class.csv
+Data/processed/flights_model_ready_3class.csv
 
 Archive/
 .ipynb_checkpoints/
+Data/raw/flights_sample_3m.csv
+Data/raw/kv_dashboard_sample.csv
+Data/processed/cleaned_flights.csv
+Data/processed/dashboard_predictions_3class.csv
+Data/processed/flights_model_ready_3class.csv
+Data/processed/flights_model_ready_3class_full.csv
+.ruff_cache/
+Code/__pycache__/
